@@ -22,13 +22,16 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
+    @user = User.find(params[:id])
     render json: @user
   end
 
   # POST /users
   def create
-    @user = User.new(user_params)
-  
+    @user = User.last
+    @medication = Medication.create(params[:medication])
+    @user.prescriptions.create(params[:user_id => @user.id])
+
     if @user.save && @user.authenticate(user_params[:password])
       auth_token = JsonWebToken.encode(user_id: @user.id)
       flash[:alert] = "Your account has been created. Please save your auth token in a secure place."
