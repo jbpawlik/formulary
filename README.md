@@ -20,6 +20,10 @@ Setup for this project assumes that you have Ruby installed on your personal com
 6. To check the specifications, type "rspec". RSpec will run the logic specifications, then Capybara will run the integration specs. Testing logs are available in ./coverage.
 7. When finished viewing the site, disconnect the server by navigating to the terminal window and typing ctrl-C
 
+1. Run 'rails db:create'
+2. rails g scaffold User email:uniq password:digest
+3. rails db:migrate
+
 Alternately, visit the [Heroku deployment](https://marios-fine-foods.herokuapp.com)
 
 ### __Known Bugs / Future Goals__
