@@ -23,6 +23,24 @@ Setup for this project assumes that you have Ruby installed on your personal com
 1. Run 'rails db:create'
 2. rails g scaffold User email:uniq password:digest
 3. rails db:migrate
+4. uncomment bcrypt
+5. Add to user.rb:
+class User < ApplicationRecord
+  has_secure_password
+  validates :email, presence: true, uniqueness: true
+end
+6. Add jwt gem
+7. Create json_web_token.rb in lib directory
+8. run 'rails s' in the console
+9. To create a user, send a POST request to http://localhost:3000/users with an attached body (raw, JSON) containing this information:
+{
+  "user": {
+    "email": "test@test.ca",
+    "password": "1234"
+  }
+}
+10. You will receive an authentication token back from the API. Copy this token
+11. To see user details, send a GET request to http://localhost:3000/users, selecting Auth type Bearer Token and entering your token in the field
 
 Alternately, visit the [Heroku deployment](https://marios-fine-foods.herokuapp.com)
 
