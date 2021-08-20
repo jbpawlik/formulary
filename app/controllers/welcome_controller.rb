@@ -1,6 +1,6 @@
-class WelcomeController < ApplicationController
+class WelcomeController < ActionController::Base
 
-  def index
-    render :index
+  def welcome
+    render :welcome
   end
 end
