@@ -35,7 +35,7 @@ gem 'jwt'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'bootstrap', '~> 5.0.1'
+gem 'bootstrap-sass'
 gem 'sprockets-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
