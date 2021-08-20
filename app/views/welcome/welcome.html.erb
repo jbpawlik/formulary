@@ -1,13 +1,14 @@
 <body id="welcome">
   <h1>Formulary One</h1>
   <h3>The Time is Nigh: <%= Time.now %></h3>
-  <h1><%= link_to  "Sign up", '/' %></h1>
-  <%= form_for :user, url: '/users' do |f| %>
-    <h3>Email: <%= f.text_field :email %>
-    <br>
-    <br>
-    Password: <%= f.password_field :password %>
-    <%= f.submit "Submit" %></h3>
-  <% end %>
-  <h1><%= link_to  "User Login", login_users_path %></h1>
+  <h1><%#= link_to  "Sign up", '/' %>Sign Up</h1>
+  <div id="signUpForm">
+    <%= form_for :user, url: '/users' do |f| %>
+      <h3>Email: <%= f.text_field :email %>
+      <br>
+      <br>
+      Password: <%= f.password_field :password %>
+      <%= f.submit "Submit" %></h3>
+    <% end %>
+  <h1><%= link_to "Login", login_users_path %></h1>
 </body>

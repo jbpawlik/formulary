@@ -25,13 +25,18 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-# gem 'jquery-rails'
-# gem 'bootstrap', '~> 5.0.2'
+gem 'jquery-rails'
+
 # gem 'kaminari'
 # gem 'rails_admin', '~> 2.0'
 # gem 'rails_admin_rollincode', '~> 1.0'
 gem 'httparty'
 gem 'jwt'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
+gem 'bootstrap', '~> 5.0.1'
+gem 'sprockets-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
