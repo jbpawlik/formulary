@@ -28,8 +28,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
 gem 'bootstrap', '~> 5.0.2'
 gem 'kaminari'
-gem 'rails_admin', '~> 2.0'
-gem 'rails_admin_rollincode', '~> 1.0'
+# gem 'rails_admin', '~> 2.0'
+# gem 'rails_admin_rollincode', '~> 1.0'
 gem 'httparty'
 gem 'jwt'
 
