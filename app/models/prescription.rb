@@ -1,3 +1,4 @@
 class Prescription < ApplicationRecord
-  has_many :users
+  belongs_to :user
+  belongs_to :medication
 end
