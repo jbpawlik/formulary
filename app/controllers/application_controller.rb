@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   layout 'application'
-  
+  skip_before_action :verify_authenticity_token
   require 'json_web_token'
   # before_action :authorize, only: [:secret]
 

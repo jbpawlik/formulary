@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_request!, except: [:welcome, :new, :create, :login] # Exclude this route from authentication
+
   before_action :set_user, only: [:show, :update, :destroy]
-
-
+  
   def login
     user = User.find_by(email: user_params[:email].to_s.downcase)
     if user&.authenticate(user_params[:password])
@@ -19,6 +19,10 @@ class UsersController < ApplicationController
     render json: @users
   end
 
+  def new
+    @user = User.new
+  end
+
   # GET /users/1
   def show
     @user = User.find(params[:id])
@@ -26,10 +30,11 @@ class UsersController < ApplicationController
   end
 
   # POST /users
+  # debugger
   def create
-    @user = User.new(user_params)
-    @user.save
-    @medication_user = MedicationUsers.create!(user_id: @user.id )
+    @user = User.create(user_params)
+    # @user.save
+    # @medication_user = MedicationUsers.create!(user_id: @user.id )
     # @user = User.new(user_params)
     # @user.save
     # @prescription = Prescription.create!(user_id: @user.id)
@@ -38,6 +43,7 @@ class UsersController < ApplicationController
     # @user.save
 
     if @user.save && @user.authenticate(user_params[:password])
+      
       auth_token = JsonWebToken.encode(user_id: @user.id)
       flash[:alert] = "Your account has been created. Please save your auth token in a secure place."
       render json: { auth_token: auth_token }, status: :ok
@@ -59,6 +65,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    render json: User.all
   end
 
   private
@@ -69,6 +76,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user, :email, :password)
+      params.require(:user).permit(:email, :password)
     end
 end
