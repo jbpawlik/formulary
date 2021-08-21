@@ -6,9 +6,9 @@ class CreateMedications < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :prescriptions do |t|
-      t.references :user, index: true, foreign_key: true
-      t.references :medication, index: true, foreign_key: true
+    create_table :medication_users do |t|
+      t.belongs_to :user, index: true, foreign_key: true
+      t.belongs_to :medication, index: true, foreign_key: true
       t.timestamps null: false
     end
   end

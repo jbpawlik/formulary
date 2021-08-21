@@ -15,20 +15,20 @@ ActiveRecord::Schema.define(version: 2021_08_20_220151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "medication_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "medication_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medication_id"], name: "index_medication_users_on_medication_id"
+    t.index ["user_id"], name: "index_medication_users_on_user_id"
+  end
+
   create_table "medications", force: :cascade do |t|
     t.string "name"
     t.integer "tier"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "prescriptions", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "medication_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["medication_id"], name: "index_prescriptions_on_medication_id"
-    t.index ["user_id"], name: "index_prescriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,6 +39,6 @@ ActiveRecord::Schema.define(version: 2021_08_20_220151) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "prescriptions", "medications"
-  add_foreign_key "prescriptions", "users"
+  add_foreign_key "medication_users", "medications"
+  add_foreign_key "medication_users", "users"
 end
