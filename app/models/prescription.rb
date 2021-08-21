@@ -1,4 +1,4 @@
-class MedicationUsers < ApplicationRecord
+class Prescription < ApplicationRecord
   belongs_to :user
   belongs_to :medication
   # validates :user_id, presence: true

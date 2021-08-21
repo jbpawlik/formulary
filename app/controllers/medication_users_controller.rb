@@ -1,21 +1,21 @@
-class MedicationUsers < ApplicationController
+class PrescriptionsController < ApplicationController
   
   def create
     @user = current_user
     @medication = Medication.last
-    @medication_users = MedicationUsers.create!(user_id: @user.id, medication_id: @medication.id)
+    @medication_users = prescriptionsController.create!(user_id: @user.id, medication_id: @medication.id)
     render json: @medication_users
   end
 
   def show
     @user = current_user
-    @medication_users = MedicationUsers.find(@user.id)
+    @medication_users = prescriptionsController.find(@user.id)
     render json: @medication_users
   end
 
   def update
     @user = current_user
-    @medication_users = MedicationUsers.find(@user.id)
+    @medication_users = prescriptionsController.find(@user.id)
     if @medication_users.update(@medication_users_params)
       render json: @medication_users
     else

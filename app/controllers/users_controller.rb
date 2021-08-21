@@ -23,33 +23,20 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # GET /users/1
   def show
     @user = User.find(params[:id])
-    @medications = Medication.all 
+    @medications = Medication.all.values.to_a
     @medication_users = MedicationUsers.find(@user.id)
     new_array = @medications.select {|user_id| @medication_users.user_id  != @user.id }
-    response = { :user => @user.email, :name => new_array.select {|element| element["medications"[element.id]] != 'name' }, :tier => rand(1..4) }
-    # debugger
+    response = { :user => @user['email'], :name => new_array.select {|element| element.values == 0 }, :tier => rand(1..4) }
     render json: response
   end
 
-
-  # POST /users
-  # debugger
   def create
     @user = User.create(user_params)
-    # @user.save
-    # @medication_user = MedicationUsers.create!(user_id: @user.id )
-    # @user = User.new(user_params)
-    # @user.save
-    # @prescription = Prescription.create!(user_id: @user.id)
-    # @medication = Medication.create(params[:medication])
-    # @user.prescriptions.create(user_id: @user.id, )
-    # @user.save
 
     if @user.save && @user.authenticate(user_params[:password])
-      
+
       auth_token = JsonWebToken.encode(user_id: @user.id)
       flash[:alert] = "Your account has been created. Please save your auth token in a secure place."
       render json: { auth_token: auth_token }, status: :ok
@@ -59,7 +46,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
       render json: @user
@@ -68,19 +54,16 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
   def destroy
     @user.destroy
     render json: User.all
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
     def user_params
       params.require(:user).permit(:email, :password)
     end
