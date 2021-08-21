@@ -8,14 +8,18 @@
 
 User.destroy_all
 Medication.destroy_all
-# MedicationUsers.destroy_all
+MedicationUsers.destroy_all
 ActiveRecord::Base.connection.reset_pk_sequence!(User.table_name)
 ActiveRecord::Base.connection.reset_pk_sequence!(Medication.table_name)
 ActiveRecord::Base.connection.reset_pk_sequence!(MedicationUsers.table_name)
 
-50.times do 
+25.times do 
   User.create!(email: "#{Faker::Internet.email}", password: "#{Faker::Internet.password}")
-  Medication.create!(name: "#{Faker::Verb.base}")
+  Medication.create!(name: "#{Faker::Verb.base}")  
+end
+
+50.times do 
+  MedicationUsers.create!(user_id: "#{Faker::Number.rand(5)}",  medication_id: "#{Faker::Number.rand(5)}" )
 end
 
 p "Created #{User.count} users and #{Medication.count} medications"

@@ -7,10 +7,6 @@ class MedicationUsers < ApplicationController
     render json: @medication_users
   end
 
-  # def edit
-  #   @user = current_user
-  # end
-
   def show
     @user = current_user
     @medication_users = MedicationUsers.find(@user.id)
