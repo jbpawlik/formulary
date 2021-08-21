@@ -19,7 +19,9 @@ class MedicationsController < ApplicationController
   # GET /medications/1
   def show
     @medication = Medication.find(params[:id])
-    render json: @medication
+    @users = User.where(MedicationUsers.user_id == params[:id])
+    response = { :medication => @medication, :users => @users }
+    render json: response
   end
 
   # POST /medications
@@ -29,6 +31,13 @@ class MedicationsController < ApplicationController
     @medication_users = MedicationUsers.create!(user_id: @current_user.id, medication_id: @medication.id)
     render json: @medication
   end
+
+  #GET /medications/random
+  def random_search
+    @medication = Medication.rand(50)
+    render json: @medication
+  end
+
 
   # PATCH/PUT /medications/1
   def update

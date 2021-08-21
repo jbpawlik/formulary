@@ -26,9 +26,15 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     @user = User.find(params[:id])
-    @medications = Medication.all
-    response = {:user => @user, :medications => @medications}
-    render json: response
+    @medication_users = MedicationUsers.all
+    response = {}
+    @medication_users.each_with_index do |user, index|
+      if user.user_id == params[:id]
+        response.push(user.email, medication.name, medication.tier.rand(4))
+      end
+      response
+    end
+      render json: response
   end
 
   # POST /users
