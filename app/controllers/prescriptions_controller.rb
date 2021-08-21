@@ -16,7 +16,7 @@ class PrescriptionsController < ApplicationController
   def update
     @user = current_user
     @prescriptions = PrescriptionsController.find(@user.id)
-    if @prescriptions.update(@prescriptions_params)
+    if @prescriptions.update(prescriptions_params)
       render json: @prescriptions
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -28,7 +28,7 @@ class PrescriptionsController < ApplicationController
   end
 
   private
-  def @prescriptions_params 
+  def prescriptions_params
     params.require(:@prescriptions).permit(user_ids: [], medication_ids: [])
   end
 end
