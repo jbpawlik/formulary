@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
   resources :medications do
     collection do
-      get "medications/random_search" => 'medications#random_search'
+      get "random_search"
     end
   end
 end
