@@ -23,7 +23,7 @@ class MedicationsController < ApplicationController
     @medication = Medication.all.shuffle.first
     response = @medication
     random_num = Random.rand(1..25)
-    render json: response
+    render json: response['name']
   end
 
   def update
