@@ -32,9 +32,9 @@ gem 'jquery-rails'
 # gem 'rails_admin_rollincode', '~> 1.0'
 gem 'httparty'
 gem 'jwt'
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
+# gem 'sass-rails'
+# gem 'uglifier'
+# gem 'coffee-rails'
 gem 'bootstrap', '~> 5.0.1'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
