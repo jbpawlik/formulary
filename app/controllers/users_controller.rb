@@ -26,15 +26,14 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     @user = User.find(params[:id])
-    @medication_users = MedicationUsers.all
-    @response = {}
-    @medication_users.each do |element, med|
-      if element.user_id == params[:id]
-        @response = { email: user.email, name: med.name, tier: Number.rand(4)}
-      end
-    end
-    render json: @response
+    @medications = Medication.all 
+    @medication_users = MedicationUsers.find(@user.id)
+    new_array = @medications.select {|user_id| @medication_users.user_id  != @user.id }
+    response = { :user => @user.email, :medications => @medications.all }
+    
+    render json: response
   end
+
 
   # POST /users
   # debugger
