@@ -1,4 +1,4 @@
-class Medication < ApplicationController
+class MedicationsController < ApplicationController
   
   # def create
   # # @medication = Medication.last
@@ -13,7 +13,7 @@ class Medication < ApplicationController
   # GET /medications
   def index
     @medications = Medication.all
-    render json: @medications.order
+    render json: @medications
   end
 
   # GET /medications/1
@@ -24,9 +24,9 @@ class Medication < ApplicationController
 
   # POST /medications
   def create
-    @user = current_user
+    load_current_user!
     @medication = Medication.create!(medication_params)
-    @medication_users = MedicationUsers.create!(user_id: @user.id, medication_id: @medication.id)
+    @medication_users = MedicationUsers.create!(user_id: @current_user.id, medication_id: @medication.id)
     render json: @medication
   end
 
@@ -41,11 +41,13 @@ class Medication < ApplicationController
 
   # DELETE /medications/1
   def destroy
+    @medication = Medication.find(params[:id])
     @medication.destroy
+    render json: Medication.all
   end
 
   private
   def medication_params
-    params.require(:medication, :name, :tier)
+    params.require(:medication).permit(:name, :tier)
   end
 end
