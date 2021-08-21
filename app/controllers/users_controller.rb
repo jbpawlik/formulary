@@ -29,8 +29,8 @@ class UsersController < ApplicationController
     @medications = Medication.all 
     @medication_users = MedicationUsers.find(@user.id)
     new_array = @medications.select {|user_id| @medication_users.user_id  != @user.id }
-    response = { :user => @user.email, :medications => @medications.all }
-    
+    response = { :user => @user.email, :name => new_array.select {|element| element["medications"[element.id]] != 'name' }, :tier => rand(1..4) }
+    # debugger
     render json: response
   end
 
