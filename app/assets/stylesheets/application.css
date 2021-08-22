@@ -1,0 +1,9 @@
+
+
+@import "bootstrap";
+
+
+body {
+  display: inline-flex;
+  flex-direction: column;
+}

@@ -17,6 +17,11 @@
 //= require jquery3
 //= require popper
 
+import "bootstrap";
+import "../stylesheets/application.css"
+import 'bootstrap/dist/js/bootstrap'
+import "bootstrap/dist/css/bootstrap";
+import "../stylesheets/application"
 
 setTimeout(function() {
   $('.alert').fadeOut();
