@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    render json: @users
+    render :index
   end
 
   def new
@@ -35,13 +35,11 @@ class UsersController < ApplicationController
     if @user.save && @user.authenticate(user_params[:password])
       auth_token = JsonWebToken.encode(user_id: @user.id)
       flash[:alert] = "Your account has been created. Your authorization token is #{auth_token}.  Please save your auth token in a secure place."
-      # render json: { auth_token: auth_token }, status: :ok
-      # token_response = ["#{auth_token}", status: :ok]
       redirect_to '/'
     else
       # render json: @user.errors, status: :unprocessable_entity
-      token_error_response = { json: @user.errors, status: :unprocessable_entity }
-      flash[:alert] = "Unable to process your request.#{token_error_response} Please try again."
+      token_error_response = "#{@user.errors.values.join(' ')}"
+      flash[:alert] = "Unable to process your request. Error '#{token_error_response}'. Please try again."
       redirect_to '/'
 
     end
