@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    render :index
+    render json: @users
   end
 
   def new
@@ -23,10 +23,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @medications = Medication.all.values.to_a
-    @prescriptions = Prescription.find(@user.id)
-    new_array = @medications.select {|user_id| @prescriptions.user_id  != @user.id }
-    response = { :user => @user['email'], :name => new_array.select {|element| element.values == 0 }, :tier => rand(1..4) }
+    prescriptions = Prescription.find(@user.id)
+    @medications = Medication.all
+    prescribed = prescriptions.medication_id
+    # need to get list of medications by prescription id
+    # new_array = @medications.select {|user_id| @prescriptions.user_id  != @user.id }
+    response = { :user => @user['email'], :medications => @medications.where(id: prescribed), :tier => rand(1..4) }
+    # response = { :user => @user['email'], :name => new_array.select {|element| element.values == 0 }, :tier => rand(1..4) }
     render json: response
   end
 
@@ -34,13 +37,14 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.save && @user.authenticate(user_params[:password])
       auth_token = JsonWebToken.encode(user_id: @user.id)
-      flash[:alert] = "Your account has been created. Your authorization token is #{auth_token}.  Please save your auth token in a secure place."
-      redirect_to '/'
+      flash[:alert] = "Your account has been created. Your authorization token is #{auth_token}.  Please save your token in a secure place."
+      # redirect_to '/'
+      render json: { auth_token: auth_token }, status: :ok
     else
-      # render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :unprocessable_entity
       token_error_response = "#{@user.errors.values.join(' ')}"
       flash[:alert] = "Unable to process your request. Error '#{token_error_response}'. Please try again."
-      redirect_to '/'
+      # redirect_to '/'
 
     end
   end

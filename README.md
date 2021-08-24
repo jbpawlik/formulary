@@ -32,7 +32,7 @@ Users and Medications exist in a many-to-many relationship. A User can have mult
 If using the 'rails s' command, these are the routes:
 
 http://localhost:3000/  root GET '/' 'welcome#welcome'
-A landing page that allows the user to sign up for an account and receive an authentication token. The user does not need authentication on this page (or any dealing with signing up for or into an account).
+A landing page for browser users that allows the user to sign up for an account and receive an authentication token. The user does not need authentication on this page (or any dealing with signing up for or into an account).
 
 http://localhost:3000/users   POST   /users(.:format)  users#create
 This is the route that allows the user to create new users. Send a POST request to http://localhost:3000/users with an attached body (raw, JSON) containing user information formatted this way: {"user": {"email": "test@test.ca", "password": "1234"}}.You will be given an authentication token. Copy the token and paste it into Postman under the Authorization -> Type -> Bearer Token section. This will allow you to access the API database.

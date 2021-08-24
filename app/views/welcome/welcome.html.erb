@@ -1,7 +1,6 @@
 <body id="welcome">
   <h1>Formulary One</h1>
-  <h3>The Time is Nigh: <%= Time.now %></h3>
-  <h1>Sign Up</h1>
+  <h2>Request Access Token</h2>
   <div id="signUpForm">
     <%= form_for :user, url: 'users' do |f| %>
       <h3>Email: <%= f.text_field :email %>
