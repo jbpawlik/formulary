@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def invalid_authentication
-    render json: {error: '401 - Unauthorized; send POST request with email and password to receive access token'}
+    render json: {error: '401 - Unauthorized; send POST request to /users with email and password to receive access token'}
   end
 
   private

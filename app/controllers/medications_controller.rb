@@ -1,5 +1,5 @@
 class MedicationsController < ApplicationController
-
+  before_action :authenticate_request! #, except: [:welcome, :new, :create, :login]
   def index
     @medications = Medication.all
     render json: @medications
