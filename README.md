@@ -41,7 +41,7 @@ http://localhost:3000/login_users  login_users POST /users/login(.:format) users
 You will need to supply an email address and password. Send a POST request to http://localhost:3000/users with an attached body (raw, JSON) containing your user information: {"user": {"email": "test@test.ca", "password": "1234"}}.
 
 http://localhost:3000/users  users GET  /users(.:format)  users#index
-Allows the user to see a listing of other users. Users can see other users' names and email addresses (deprecated in the production release).
+Allows the user to see a listing of other users.
 
 http://localhost:3000/users/:id  user GET /users/:id(.:format)  users#show
 Individual user page. Shows the user's prescriptions.
@@ -53,7 +53,7 @@ http://localhost:3000/users/:id  PUT /users/:id(.:format)  users#update
 Similar to Patch but replaces the original version of the resource; Patch supplies instructions to modify the resource.
 
 http://localhost:3000/users/:id  DELETE /users/:id(.:format) users#destroy
-Sending a DELETE request here deletes the user. Users cannot delete other users without their login credentials.
+Sending a DELETE request here deletes the user. The user login credentials must be send with the request.
 
 The Medication class also has full REST functionality.  The routes are listed below:
 http://localhost:3000  medications GET /medications(.:format) medications#index

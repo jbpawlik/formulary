@@ -23,13 +23,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    # if @user.id == @current_user.id
+    #   render json: 'User cannot access other user profiles'
+    # end
     prescriptions = Prescription.find(@user.id)
     @medications = Medication.all
     prescribed = prescriptions.medication_id
-    # need to get list of medications by prescription id
-    # new_array = @medications.select {|user_id| @prescriptions.user_id  != @user.id }
-    response = { :user => @user['email'], :medications => @medications.where(id: prescribed), :tier => rand(1..4) }
-    # response = { :user => @user['email'], :name => new_array.select {|element| element.values == 0 }, :tier => rand(1..4) }
+    response = { :user => @user['email'], :medications => @medications.where(id: prescribed) }
+    # # response = { :user => @user['email'], :name => new_array.select {|element| element.values == 0 }, :tier => rand(1..4) }
     render json: response
   end
 

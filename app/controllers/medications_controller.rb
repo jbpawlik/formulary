@@ -7,7 +7,9 @@ class MedicationsController < ApplicationController
 
   def show
     @medication = Medication.find(params[:id])
-    @users = User.where(prescriptions.user_id == params[:id])
+    @prescriptions = Prescription.find(@medication.id)
+    prescribed = @prescriptions.user_id
+    @users = User.where(id: prescribed)
     response = { :medication => @medication, :users => @users }
     render json: response
   end
